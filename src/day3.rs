@@ -39,7 +39,7 @@ fn part1() {
 }
 
 fn part2() {
-    let FILE: &str = "./inputs/day3.txt";
+    const FILE: &str = "./inputs/day3.txt";
     let schematic = utils::read_chars_in_file(FILE);
 
     let mut sum: u32 = 0;
