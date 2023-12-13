@@ -11,3 +11,12 @@ pub fn read_lines_in_file(file_name: impl AsRef<Path>) -> Vec<String> {
         .map(|line| line.expect("Unable to parse line"))
         .collect()
 }
+
+pub fn read_chars_in_file(file_name: impl AsRef<Path>) -> Vec<Vec<char>> {
+
+    let lines = read_lines_in_file(file_name);
+
+    lines.iter()
+        .map(|line| line.chars().collect())
+        .collect()
+}
