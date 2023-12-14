@@ -6,8 +6,6 @@ use std::cmp::min;
 #[derive(Clone)]
 struct Card {
     id: usize, 
-    winning_numbers: Vec<u32>,
-    your_numbers: Vec<u32>,
     common_numbers: Vec<u32>,
 }
 
@@ -28,12 +26,10 @@ impl Card {
                                                 .filter_map(|num| if let Ok(n) = num.parse::<u32>() { Some(n) } else { None })
                                                 .collect();
 
-        let common_numbers: Vec<_> = winning_numbers.intersect(your_numbers.clone());
+        let common_numbers: Vec<_> = winning_numbers.intersect(your_numbers);
 
         Card {
             id,
-            winning_numbers,
-            your_numbers,
             common_numbers,
         }
     }
@@ -71,9 +67,7 @@ fn part2() {
     const FILE: &str = "./inputs/day4.txt";
     let lines = utils::read_lines_in_file(FILE);
 
-    let mut sum: u32 = 0;
     let mut cards: Vec<Card> = Vec::new();
-    
 
     for line in lines {
         let card = Card::from_str(&line);
@@ -99,8 +93,8 @@ fn part2() {
         }
     }
 
-    sum = copy_counts.iter()
-                    .map(|(key, value)| value)
+    let sum = copy_counts.iter()
+                    .map(|(_, value)| value)
                     .fold(0, |a, b| a+b);
 
     println!("Part 2: The total number of cards is {sum}");
