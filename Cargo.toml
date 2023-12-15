@@ -27,7 +27,12 @@ path = "src/day5.rs"
 name = "day6"
 path = "src/day6.rs"
 
+[[bin]]
+name = "day7"
+path = "src/day7.rs"
+
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 array_tool = "1.0.0"
+fancy-regex = "0.12.0"
