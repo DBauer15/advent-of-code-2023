@@ -7,7 +7,6 @@ struct Node {
     id: u64,
     left: u64,
     right: u64,
-    line: String,
 }
 
 impl Node {
@@ -22,7 +21,6 @@ impl Node {
             id,
             left,
             right,
-            line: String::from(line),
         }
     }
 }
@@ -94,7 +92,7 @@ fn part2() {
     const FILE: &str = "./inputs/day8.txt";
     let lines = utils::read_lines_in_file(FILE);
 
-    let mut steps = 0;
+    let mut steps: u64;
     let directions: Vec<char> = lines[0].chars().collect();
     let nodes: HashMap<u64, Node> = lines[2..].iter()
                                     .map(|line| {
@@ -103,8 +101,8 @@ fn part2() {
                                     })
                                     .collect();
 
-    let mut start_nodes: Vec<_> = nodes.iter()
-                    .filter_map(|(id, node)| if id % 26 == 0 { Some(id) } else { None })
+    let start_nodes: Vec<_> = nodes.iter()
+                    .filter_map(|(id, _)| if id % 26 == 0 { Some(id) } else { None })
                     .copied()
                     .collect();
     let mut steps_per_node: HashMap<u64, u64> = HashMap::new();
@@ -127,7 +125,7 @@ fn part2() {
     }
 
     steps = steps_per_node.iter()
-                        .fold(1, |a, (id, steps)| lcm(a, *steps));
+                        .fold(1, |a, (_, steps)| lcm(a, *steps));
 
     println!("Part 2: It takes {steps} steps for all paths to reach **Z");
 }
